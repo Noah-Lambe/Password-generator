@@ -16,14 +16,13 @@ const generatePassword = (userInput) => {
   // Check if the user specified a custom password length using "--length"
   if (userInput.includes("--length")) {
     const lengthIndex = userInput.indexOf("--length") + 1; // Find the index after "--length"
-    if (lengthIndex < userInput.length) {
-      passwordLength = parseInt(userInput[lengthIndex], 10); // Use the argument following "--length"
-      if (isNaN(passwordLength) || passwordLength <= 0) {
-        console.error(
-          "Invalid length provided. Please provide a positive integer."
-        );
-        return;
-      }
+    passwordLength = parseInt(userInput[lengthIndex], 10); // Use the argument following "--length"
+
+    if (isNaN(passwordLength) || passwordLength <= 0) {
+      console.error(
+        "Invalid length provided. Please provide a positive integer."
+      );
+      return;
     }
   }
 
