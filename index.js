@@ -3,33 +3,35 @@ const process = require("process");
 
 // Retrieve command-line arguments, excluding the first two (node and script file path)
 const arguments = process.argv.slice(2);
-const userInput = arguments; // Store arguments in a variable for easier reference
+const userInput = arguments;
 
 let password = "";
 
 // Function to generate a random password based on user input or defaults
 const generatePassword = (userInput) => {
-  const characters = "abcdefghijklmnopqrstuvwxyz"; // Allowed characters
-  const charactersLength = characters.length; // Number of available characters (needed for random proccessing)
+  const characters = "abcdefghijklmnopqrstuvwxyz"; // Allowed characters for the password
+  const charactersLength = characters.length;
   let passwordLength = 8; // Default password length
 
-  // Check if the user provided a "--length" argument to specify password length
+  // Check if the user specified a custom password length using "--length"
   if (userInput.includes("--length")) {
-    passwordLength = arguments[1]; // Use the next argument as the password length
+    const lengthIndex = userInput.indexOf("--length") + 1; // Find the index after "--length"
+    if (lengthIndex < userInput.length) {
+      passwordLength = parseInt(userInput[lengthIndex], 10); // Use the argument following "--length"
+      if (isNaN(passwordLength) || passwordLength <= 0) {
+        console.error(
+          "Invalid length provided. Please provide a positive integer."
+        );
+        return;
+      }
+    }
+  }
 
-    // Generate the password of the specified length
-    for (let i = 0; i < passwordLength; i++) {
-      password += characters.charAt(
-        Math.floor(Math.random() * charactersLength) // Pick a random character
-      );
-    }
-  } else {
-    // Default behavior
-    for (let i = 0; i < passwordLength; i++) {
-      password += characters.charAt(
-        Math.floor(Math.random() * charactersLength)
-      );
-    }
+  // Generate the password
+  for (let i = 0; i < passwordLength; i++) {
+    password += characters.charAt(
+      Math.floor(Math.random() * charactersLength) // Pick a random character
+    );
   }
 
   // Print the generated password to the console
