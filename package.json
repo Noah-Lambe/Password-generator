@@ -1,7 +1,7 @@
 {
   "name": "password_generator",
   "version": "1.0.0",
-  "description": "generates a password based on user input",
+  "description": "Generates a password based on user input",
   "homepage": "https://github.com/Noah-Lambe/Password-generator#readme",
   "bugs": {
     "url": "https://github.com/Noah-Lambe/Password-generator/issues"
