@@ -24,19 +24,17 @@ if (userInput.includes("--help" || "-help" || "-h" || "help")) {
     let passwordLength = 8; // Default password length
 
     if (userInput.includes("--uppercase")) {
-      characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; // Add uppercase characters
+      characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Add uppercase characters
       charactersLength = characters.length;
     }
 
     if (userInput.includes("--numbers")) {
-      characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321"; // Add numbers
+      characters += "0987654321"; // Add numbers
       charactersLength = characters.length;
     }
 
     if (userInput.includes("--symbols")) {
-      characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321!@#$%^&*()-_=+[{]};:',<.>/?"; // Add symbols
+      characters += "!@#$%^&*()-_=+[{]};:',<.>/?"; // Add symbols
       charactersLength = characters.length;
     }
 
