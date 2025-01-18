@@ -10,6 +10,9 @@ let password = "";
 if (userInput.includes("--help" || "-help" || "-h" || "help")) {
   console.log(`
       Usage:
+      
+      Run the program using node index.js, followed by optional flags to customize the generated password.
+
       --help          Print this help message
       --length <num>  Set the password length (default: 8)
       --uppercase     Include uppercase letters in the password
