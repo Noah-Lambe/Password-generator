@@ -7,7 +7,7 @@ const userInput = arguments;
 
 let password = "";
 
-if (userInput.includes("--help" || "-help" || "-h" || "help" || "")) {
+if (userInput.includes("--help" || "-help" || "-h" || "help")) {
   console.log(`
       Usage:
       --help          Print this help message
