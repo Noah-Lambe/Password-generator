@@ -7,6 +7,7 @@ const userInput = arguments;
 
 let password = "";
 
+//  Provide Instructions when prompted with a help flag
 if (userInput.includes("--help" || "-help" || "-h" || "help")) {
   console.log(`
       Usage:
