@@ -9,9 +9,26 @@ let password = "";
 
 // Function to generate a random password based on user input or defaults
 const generatePassword = (userInput) => {
-  const characters = "abcdefghijklmnopqrstuvwxyz"; // Allowed characters for the password
-  const charactersLength = characters.length;
+  let characters = "abcdefghijklmnopqrstuvwxyz"; // Allowed characters for the password
+  let charactersLength = characters.length;
   let passwordLength = 8; // Default password length
+
+  if (userInput.includes("--uppercase")) {
+    characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; // Add uppercase characters
+    charactersLength = characters.length;
+  }
+
+  if (userInput.includes("--numbers")) {
+    characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321"; // Add numbers
+    charactersLength = characters.length;
+  }
+
+  if (userInput.includes("--symbols")) {
+    characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0987654321!@#$%^&*()-_=+[{]};:',<.>/?"; // Add symbols
+    charactersLength = characters.length;
+  }
 
   // Check if the user specified a custom password length using "--length"
   if (userInput.includes("--length")) {
