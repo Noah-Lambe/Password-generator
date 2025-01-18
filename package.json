@@ -1,0 +1,20 @@
+{
+  "name": "password_generator",
+  "version": "1.0.0",
+  "description": "generates a password based on user input",
+  "homepage": "https://github.com/Noah-Lambe/Password-generator#readme",
+  "bugs": {
+    "url": "https://github.com/Noah-Lambe/Password-generator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noah-Lambe/Password-generator.git"
+  },
+  "license": "MIT",
+  "author": "Noah Lambe",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
