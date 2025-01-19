@@ -7,8 +7,62 @@ const userInput = arguments;
 
 let password = "";
 
-//  Provide Instructions when prompted with a help flag
-if (userInput.includes("--help" || "-help" || "-h" || "help")) {
+// Define valid static flags
+const validFlags = [
+  "--help",
+  "--length",
+  "--uppercase",
+  "--numbers",
+  "--symbols",
+];
+
+// Variable to hold the extracted value for --length
+let argumentL = null;
+
+// Check for invalid flags
+const invalidFlags = userInput.filter((arg, index) => {
+  // For '--length', ensure it has a valid numeric value following it
+  if (arg === "--length") {
+    const nextArg = userInput[index + 1];
+    return !nextArg || !/^\d+$/.test(nextArg); // Invalid if no value or non-numeric value
+  }
+
+  // Validate standalone flags
+  if (
+    !validFlags.includes(arg) &&
+    (index === 0 || userInput[index - 1] !== "--length")
+  ) {
+    return true; // Invalid flag
+  }
+
+  return false; // Valid flag
+});
+
+// Handle invalid flags
+if (invalidFlags.length > 0) {
+  console.error(`Invalid flags provided: ${invalidFlags.join(", ")}`);
+  console.error("Use --help to see available options.");
+  process.exit(1);
+}
+
+// Extract the value for --length if provided
+if (userInput.includes("--length")) {
+  const lengthIndex = userInput.indexOf("--length"); // Find the index of "--length"
+  const lengthValue = userInput[lengthIndex + 1]; // Get the value after "--length"
+
+  // Validate and set the argumentL
+  if (lengthValue && /^\d+$/.test(lengthValue)) {
+    argumentL = `--length ${lengthValue}`;
+  } else {
+    console.error(
+      "Invalid or missing value for --length. Please provide a positive integer."
+    );
+    process.exit(1);
+  }
+}
+
+// Provide instructions when prompted with a help flag
+if (userInput.includes("--help")) {
   console.log(`
       Usage:
       
@@ -20,54 +74,42 @@ if (userInput.includes("--help" || "-help" || "-h" || "help")) {
       --numbers       Include numbers in the password
       --symbols       Include symbols in the password
   `);
-} else {
-  // Function to generate a random password based on user input or defaults
-  const generatePassword = (userInput) => {
-    let characters = "abcdefghijklmnopqrstuvwxyz"; // Allowed characters for the password
-    let charactersLength = characters.length;
-    let passwordLength = 8; // Default password length
-
-    if (userInput.includes("--uppercase")) {
-      characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Add uppercase characters
-      charactersLength = characters.length;
-    }
-
-    if (userInput.includes("--numbers")) {
-      characters += "0987654321"; // Add numbers
-      charactersLength = characters.length;
-    }
-
-    if (userInput.includes("--symbols")) {
-      characters += "!@#$%^&*()-_=+[{]};:',<.>/?"; // Add symbols
-      charactersLength = characters.length;
-    }
-
-    // Check if the user specified a custom password length using "--length"
-    if (userInput.includes("--length")) {
-      const lengthIndex = userInput.indexOf("--length") + 1; // Find the index after "--length"
-      passwordLength = parseInt(userInput[lengthIndex], 10); // Use the argument following "--length"
-
-      if (isNaN(passwordLength) || passwordLength <= 0) {
-        console.error(
-          "Invalid length provided. Please provide a positive integer."
-        );
-        return;
-      }
-    }
-
-    // Generate the password
-    for (let i = 0; i < passwordLength; i++) {
-      password += characters.charAt(
-        Math.floor(Math.random() * charactersLength) // Pick a random character
-      );
-    }
-
-    // Print the generated password to the console
-    console.log(); // blank lines for clarity
-    console.log("Generated Password:", password);
-    console.log();
-  };
-
-  // Call the function to generate the password with the provided user input
-  generatePassword(userInput);
+  process.exit(0);
 }
+
+// Function to generate a random password based on user input or defaults
+const generatePassword = (userInput) => {
+  let characters = "abcdefghijklmnopqrstuvwxyz"; // Allowed characters for the password
+  let passwordLength = 8; // Default password length
+
+  if (userInput.includes("--uppercase")) {
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; // Add uppercase characters
+  }
+
+  if (userInput.includes("--numbers")) {
+    characters += "0987654321"; // Add numbers
+  }
+
+  if (userInput.includes("--symbols")) {
+    characters += "!@#$%^&*()-_=+[{]};:',<.>/?"; // Add symbols
+  }
+
+  // Use the custom password length if provided
+  if (userInput.includes("--length")) {
+    const lengthIndex = userInput.indexOf("--length") + 1;
+    passwordLength = parseInt(userInput[lengthIndex], 10);
+  }
+
+  // Generate the password
+  for (let i = 0; i < passwordLength; i++) {
+    password += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+
+  // Print the generated password to the console
+  console.log("\nGenerated Password:", password, "\n");
+};
+
+// Call the function to generate the password with the provided user input
+generatePassword(userInput);
