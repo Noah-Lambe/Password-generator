@@ -38,13 +38,6 @@ const invalidFlags = userInput.filter((arg, index) => {
   return false; // Valid flag
 });
 
-// Handle invalid flags
-if (invalidFlags.length > 0) {
-  console.error(`Invalid flags provided: ${invalidFlags.join(", ")}`);
-  console.error("Use --help to see available options.");
-  process.exit(1);
-}
-
 // Extract the value for --length if provided
 if (userInput.includes("--length")) {
   const lengthIndex = userInput.indexOf("--length"); // Find the index of "--length"
@@ -59,6 +52,13 @@ if (userInput.includes("--length")) {
     );
     process.exit(1);
   }
+}
+
+// Handle invalid flags
+if (invalidFlags.length > 0) {
+  console.error(`Invalid flags provided: ${invalidFlags.join(", ")}`);
+  console.error("Use --help to see available options.");
+  process.exit(1);
 }
 
 // Provide instructions when prompted with a help flag
