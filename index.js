@@ -17,7 +17,7 @@ const validFlags = [
 ];
 
 // Variable to hold the extracted value for --length
-let argumentL = null;
+let argumentL;
 
 // Check for invalid flags
 const invalidFlags = userInput.filter((arg, index) => {
@@ -108,7 +108,7 @@ const generatePassword = (userInput) => {
   }
 
   // Print the generated password to the console
-  console.log("\nGenerated Password:", password, "\n");
+  console.log("\nPassword:", password, "\n");
 };
 
 // Call the function to generate the password with the provided user input
